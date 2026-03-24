@@ -177,32 +177,32 @@ export default function TutorialWizard() {
             if (!step) return;
             const element = document.getElementById(step.targetId);
             
-            const scrollY = window.scrollY || window.pageYOffset;
-            const scrollX = window.scrollX || window.pageXOffset;
-            const innerWidth = window.innerWidth || document.documentElement.clientWidth;
-            const innerHeight = window.innerHeight || document.documentElement.clientHeight;
+            const innerWidth = window.innerWidth;
+            const innerHeight = window.innerHeight;
 
             if (element) {
                 const rect = element.getBoundingClientRect();
+                // Usamos directamente las coordenadas del viewport (fixed)
                 setCoords({
-                    top: rect.top + scrollY,
-                    left: rect.left + scrollX,
+                    top: rect.top,
+                    left: rect.left,
                     width: rect.width || 0,
                     height: rect.height || 0
                 });
             } else {
+                // Si no se encuentra, centrar en el viewport
                 setCoords({ 
-                    top: (innerHeight / 2) + scrollY, 
-                    left: (innerWidth / 2) + scrollX, 
+                    top: innerHeight / 2, 
+                    left: innerWidth / 2, 
                     width: 0, 
                     height: 0 
                 });
             }
         };
 
-        // Ejecutar inmediatamente y tras un breve delay para asegurar que el DOM se ha actualizado
+        // Ejecutar inmediatamente y tras un breve delay
         updateCoords();
-        const timer = setTimeout(updateCoords, 150);
+        const timer = setTimeout(updateCoords, 100);
         
         window.addEventListener('resize', updateCoords);
         window.addEventListener('scroll', updateCoords);
@@ -243,21 +243,20 @@ export default function TutorialWizard() {
     const step = currentSteps[currentStep];
     if (!step) return null;
 
+    // Cálculo de spotlight relativo al viewport
     const spotlightX = Number((coords.width > 0 ? coords.left - 10 : (typeof window !== 'undefined' ? window.innerWidth / 2 : 500)) || 0);
-    const spotlightY = Number((coords.height > 0 ? coords.top - 10 : (typeof window !== 'undefined' ? (window.innerHeight / 2) + window.scrollY : 400)) || 0);
+    const spotlightY = Number((coords.height > 0 ? coords.top - 10 : (typeof window !== 'undefined' ? window.innerHeight / 2 : 400)) || 0);
     const spotlightW = Number((coords.width > 0 ? coords.width + 20 : 0) || 0);
     const spotlightH = Number((coords.height > 0 ? coords.height + 20 : 0) || 0);
 
     return (
-        <div 
-            className="absolute top-0 left-0 w-full z-[200] pointer-events-none"
-            style={{ height: active ? Math.max(document.documentElement.scrollHeight, window.innerHeight) : 0 }}
-        >
+        <div className="fixed inset-0 w-full h-full z-[200] pointer-events-none overflow-hidden">
             <svg className="absolute inset-0 w-full h-full pointer-events-auto">
                 <defs>
                     <mask id="spotlight-mask">
                         <rect x="0" y="0" width="100%" height="100%" fill="white" />
                         <motion.rect
+                            initial={false}
                             animate={{
                                 x: spotlightX,
                                 y: spotlightY,
@@ -289,7 +288,7 @@ export default function TutorialWizard() {
                     opacity: 1, 
                     scale: 1,
                     top: step.position === 'bottom' ? spotlightY + spotlightH + 20 : 
-                         step.position === 'top' ? spotlightY - 320 :
+                         step.position === 'top' ? spotlightY - 260 :
                          step.position === 'center' ? spotlightY - 140 :
                          spotlightY,
                     left: step.position === 'right' ? spotlightX + spotlightW + 20 : 
@@ -297,7 +296,10 @@ export default function TutorialWizard() {
                           step.position === 'center' ? spotlightX - 170 :
                           spotlightX + (spotlightW / 2) - 170
                 }}
-                className="absolute w-[340px] bg-white dark:bg-gray-900 rounded-[2.5rem] p-8 shadow-2xl border border-tech-blue/20 pointer-events-auto"
+                className={`fixed w-[340px] bg-white dark:bg-gray-900 rounded-[2.5rem] p-8 shadow-2xl border border-tech-blue/20 pointer-events-auto ${coords.width === 0 ? 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' : ''}`}
+                style={{ 
+                    transform: coords.width === 0 ? 'translate(-50%, -50%) scale(1)' : 'none'
+                }}
             >
                 <div className="flex justify-between items-start mb-4">
                     <span className="text-[10px] font-black text-tech-blue bg-tech-blue/10 px-3 py-1 rounded-full uppercase tracking-widest leading-none">
