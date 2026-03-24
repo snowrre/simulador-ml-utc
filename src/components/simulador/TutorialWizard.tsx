@@ -14,20 +14,20 @@ interface TutorialStep {
 const steps: TutorialStep[] = [
     {
         targetId: 'hero-title',
-        title: '¡Bienvenido al Simulador ML!',
-        content: 'Aquí aprenderás cómo la Inteligencia Artificial toma decisiones. Sin código, solo con lógica y datos.',
+        title: '¡Explora la IA con Antigravity!',
+        content: 'Este simulador te permite experimentar con algoritmos de Machine Learning de nivel profesional (KNN y Árboles de Decisión) sin escribir una sola línea de código.',
         position: 'bottom'
     },
     {
-        targetId: 'btn-probar-ejemplo',
-        title: 'Prueba un Ejemplo',
-        content: 'Haz clic aquí para cargar datos de prueba (como el dataset de flores Iris) y ver el flujo completo al instante.',
+        targetId: 'btn-ver-ejemplos',
+        title: 'Proyectos de Ejemplo del Examen',
+        content: 'Accede a configuraciones predefinidas con los datasets oficiales (Iris y Breast Cancer) para ver el potencial de la IA de inmediato.',
         position: 'top'
     },
     {
         targetId: 'btn-cargar-dataset',
-        title: 'Sube tus Propios Datos',
-        content: 'Utiliza esta opción si ya tienes tu propio archivo CSV o Excel (.xlsx) listo para ser analizado por la IA.',
+        title: 'Tu Propio Laboratorio de Datos',
+        content: '¿Tienes un archivo CSV o Excel? Súbelo aquí para que el simulador lo analice y te ayude a crear predicciones personalizadas.',
         position: 'top'
     }
 ];
@@ -37,104 +37,96 @@ const internalSteps: Record<string, TutorialStep[]> = {
     '/dataset': [
         {
             targetId: 'dataset-upload-zone',
-            title: '1. Carga de Datos',
-            content: 'Arrastra tu archivo CSV o Excel aquí. Es la "materia prima" que la IA usará para aprender patrones.',
+            title: 'Importación de Datos',
+            content: 'Arrastra tu archivo aquí. El sistema procesará automáticamente el formato y detectará las columnas disponibles.',
             position: 'bottom'
         },
         {
             targetId: 'btn-select-file',
-            title: '2. Selección de Archivo',
-            content: 'Si prefieres no arrastrar, haz clic aquí para buscar tu archivo en tu computadora. Aceptamos CSV y Excel (.xlsx).',
+            title: 'Buscador de Archivos',
+            content: 'Utiliza el explorador de Windows para seleccionar tus datasets en formato CSV o Excel.',
             position: 'top'
         }
     ],
     '/dataset/loaded': [
         {
             targetId: 'dataset-health-report-card',
-            title: '1. Análisis de Calidad',
-            content: 'Aquí puedes ver un resumen rápido de tus datos. Si hay valores nulos o columnas inútiles, el sistema te avisará aquí mismo.',
-            position: 'right'
+            title: 'Diagnóstico de Calidad',
+            content: 'Antes de entrenar, revisamos si tus datos tienen errores, valores nulos o columnas irrelevantes que puedan estropear el modelo.',
+            position: 'left'
         },
         {
             targetId: 'variable-config-section',
-            title: '2. Configura tu Objetivo',
-            content: 'Define qué quieres predecir (Target Y) y qué datos influyen en eso (Features X). ¡Sin esto, la IA no sabrá qué buscar!',
+            title: 'Arquitectura de Variables',
+            content: 'Define tu variable dependiente (Target Y) y las independientes (Features X). Esta es la base matemática de tu experimento.',
             position: 'top'
         }
     ],
     '/preprocesamiento': [
         {
             targetId: 'preprocessing-strategy',
-            title: '1. Limpieza de Datos',
-            content: '¿Faltan datos en algunas filas? Aquí decides si borrarlas o rellenarlas con el promedio (Media) para no perder información.',
+            title: 'Imputación de Datos',
+            content: 'Decide cómo manejar los huecos en la información. Usar la "Media" garantiza que el modelo no pierda registros valiosos.',
             position: 'right'
         },
         {
             targetId: 'scaling-section',
-            title: '2. Escalado (Normalización)',
-            content: 'Ajusta todos los números a una misma escala (ej. 0 a 1). Vital para algoritmos como KNN, para que una variable grande no "aplaste" a las pequeñas.',
+            title: 'Estandarización Estricta',
+            content: 'Normaliza tus datos (0 a 1). Esto es CRÍTICO para KNN, ya que evita que escalas diferentes confundan al algoritmo.',
             position: 'top'
         },
         {
-            targetId: 'encoding-section',
-            title: '3. Codificación (One-Hot)',
-            content: 'La IA solo entiende números. Si tienes categorías (como "Rojo" o "Azul"), esto las convierte en códigos numéricos para que el modelo pueda procesarlas.',
-            position: 'bottom'
-        },
-        {
             targetId: 'train-test-split-section',
-            title: '4. División de Entrenamiento',
-            content: 'Separamos los datos en dos: unos para que la IA estudie (Entrenamiento) y otros para "ponerle un examen" y ver si realmente aprendió (Prueba).',
+            title: 'Validación Cruzada Holout',
+            content: 'Dividimos los datos para evitar el sobreajuste. Entrenamos con una parte y validamos con otra totalmente nueva.',
             position: 'top'
         }
     ],
     '/modelo/knn': [
         {
             targetId: 'knn-params-card',
-            title: 'Cerebro KNN (Vecinos)',
-            content: 'Ajusta los parámetros específicos de KNN. El número de "vecinos" (K) determina qué tan sensible es el modelo a casos aislados basándose en la proximidad.',
+            title: 'Hiperparámetros de Proximidad',
+            content: 'Configura el valor de K y la métrica de distancia (Euclidiana o Manhattan) para determinar cómo se agruparán los datos.',
             position: 'right'
         },
         {
             targetId: 'btn-train-model',
-            title: '¡A Entrenar KNN!',
-            content: 'Presiona este botón para que la IA busque los vecinos más cercanos en tus datos y genere predicciones.',
+            title: 'Motor de Inferencia',
+            content: 'Inicia el proceso de clasificación. El simulador calculará las distancias y generará las métricas de precisión.',
+            position: 'top'
+        },
+        {
+            targetId: 'prediction-form-card',
+            title: 'Simulación de Casos Reales',
+            content: 'Usa esta sección para ingresar datos nuevos y ver qué predice tu modelo entrenado en tiempo real.',
             position: 'top'
         }
     ],
-    '/modelo/dt': [
+    '/modelo/arbol': [
         {
             targetId: 'dt-params-card',
-            title: 'Estructura del Árbol',
-            content: 'Define la profundidad del árbol. Un árbol muy profundo puede "memorizar" demasiado (overfitting) y fallar con datos nuevos.',
+            title: 'Control de Complejidad',
+            content: 'Ajusta la profundidad máxima del árbol para controlar el equilibrio entre precisión y generalización.',
             position: 'right'
         },
         {
             targetId: 'btn-train-model',
-            title: '¡Entrenar Árbol!',
-            content: 'La IA creará una serie de preguntas lógicas (nodos) para clasificar tus datos automáticamente.',
+            title: 'Construcción Lógica',
+            content: 'El algoritmo generará reglas de decisión basadas en la ganancia de información (Gini o Entropía).',
             position: 'top'
-        }
-    ],
-    '/modelo/rf': [
-        {
-            targetId: 'rf-params-card',
-            title: 'Poder del Bosque',
-            content: 'El Bosque Aleatorio combina las decisiones de muchos árboles para ser más preciso y estable. ¡Es como una votación democrática de IAs!',
-            position: 'right'
         },
         {
-            targetId: 'btn-train-model',
-            title: '¡Entrenar Bosque!',
-            content: 'Inicia el entrenamiento simultáneo de múltiples árboles para obtener el resultado más robusto.',
+            targetId: 'prediction-form-card',
+            title: 'Predictor Predictivo',
+            content: 'Ingresa valores de prueba para validar la lógica del árbol en situaciones de diagnóstico real.',
             position: 'top'
         }
     ],
     '/experimentos': [
         {
             targetId: 'experiments-list-section',
-            title: 'Historial de Éxito',
-            content: 'Aquí verás todos tus modelos entrenados. Compara sus métricas (Accuracy) para decidir cuál es el mejor "cerebro" para tus datos.',
+            title: 'Dashboard de Resultados',
+            content: 'Analiza y compara el rendimiento de todos tus experimentos para elegir el mejor modelo para tu examen.',
             position: 'center'
         }
     ]

@@ -105,7 +105,7 @@ export default function PredictorForm({ modelType }: PredictorFormProps) {
     };
 
     return (
-        <div id="predictor-section" className="bg-white dark:bg-gray-900 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 border border-tech-blue/20 shadow-2xl relative overflow-hidden">
+        <div id="prediction-form-card" className="bg-white dark:bg-gray-900 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 border border-tech-blue/20 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 p-8 opacity-5">
                 <Target className="w-64 h-64 text-tech-blue" />
             </div>
