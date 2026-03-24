@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useML } from '@/context/MLContext';
 import { useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
+import { API_BASE_URL } from '@/lib/api';
 
 export default function MLSimulatorLanding() {
     const { setRawData, resetState, setSelectedProject } = useML();
@@ -18,7 +19,7 @@ export default function MLSimulatorLanding() {
         resetState();
         setSelectedProject(project);
         try {
-            const response = await fetch(`http://localhost:5000/api/datasets/${filename}`);
+            const response = await fetch(`${API_BASE_URL}/datasets/${filename}`);
             if (response.ok) {
                 const text = await response.text();
                 const Papa = (await import('papaparse')).default;

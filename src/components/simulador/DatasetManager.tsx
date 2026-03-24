@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import InfoTooltip from './InfoTooltip';
 import { Play, Database } from 'lucide-react';
-import { getDatasets } from '@/lib/api';
+import { getDatasets, API_BASE_URL } from '@/lib/api';
 
 export default function DatasetManager() {
     const { state, setRawData, setTargetColumn, toggleFeatureColumn, setTaskType } = useML();
@@ -126,7 +126,7 @@ export default function DatasetManager() {
                                         key={ds.file}
                                         onClick={async () => {
                                             try {
-                                                const response = await fetch(`http://localhost:5000/api/datasets/${ds.file}`);
+                                                const response = await fetch(`${API_BASE_URL}/datasets/${ds.file}`);
                                                 if (response.ok) {
                                                     const text = await response.text();
                                                     Papa.parse(text, {
